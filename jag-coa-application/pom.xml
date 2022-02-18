@@ -195,7 +195,7 @@
     </dependencies>
 
     <build>
-        <finalName>coa-application</finalName>
+        <finalName>jag-coa-application</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
