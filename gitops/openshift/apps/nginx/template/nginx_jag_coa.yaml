@@ -111,8 +111,6 @@ objects:
     nginx-upstream.conf: |-
       upstream splitter {
         server jag-coa;
-        # Tured off for now
-        # server nginx-jag-coa-oldwm;
       }
 
 - kind: DeploymentConfig
