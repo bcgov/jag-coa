@@ -1,4 +1,4 @@
-FROM openjdk:11-jre-slim
+FROM eclipse-temurin:11-jre-jammy
 
 COPY ./jag-coa-application/target/jag-coa-application.jar jag-coa-application.jar
 
