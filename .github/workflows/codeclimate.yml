@@ -36,14 +36,14 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Git Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Set up JDK build environment
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: 17
+          java-version: 21
 
       # Get Code Climate binary
       - name: Download Code Climate Binary
@@ -83,22 +83,19 @@ jobs:
         if: env.GIT_BRANCH == 'refs/heads/main'
 
       - name: Run Maven Test
-        run: mvn -ntp test
-
-      - name: Run jacoco report
-        run: mvn -ntp jacoco:report
+        run: mvn -ntp verify
 
         # Formatting the Code Coverage Report
       - name: Format the coverage report
-        run: JACOCO_SOURCE_PATH=src/main/java ./cc-test-reporter format-coverage ./target/site/jacoco/jacoco.xml -t jacoco -o ./target/site/jacoco/codeclimate.json
+        run: JACOCO_SOURCE_PATH=jag-coa-application/src/main/java ./cc-test-reporter format-coverage ./jag-coa-application/target/site/jacoco/jacoco.xml -t jacoco -o ./jag-coa-application/target/site/jacoco/codeclimate.json
 
         # Upload JSON for debugging purposes
       - name: Upload JSON for debugging purposes
         uses: actions/upload-artifact@v3.1.1
         with:
           name: coa-coverage-report
-          path: ./target/site/jacoco/codeclimate.json
+          path: ./jag-coa-application/target/site/jacoco/codeclimate.json
 
       # Upload total coverage report to Code Climate
       - name: Upload coverage report to Code Climate
-        run: ./cc-test-reporter upload-coverage -i ./target/site/jacoco/codeclimate.json
+        run: ./cc-test-reporter upload-coverage -i ./jag-coa-application/target/site/jacoco/codeclimate.json

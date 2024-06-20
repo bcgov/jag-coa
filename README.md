@@ -9,7 +9,7 @@ Github space for the integration API for Court of Appeal application for the web
 * Intellij
 * Docker
 * Maven
-* Java 17
+* Java 21
 * Lombok
 
 ### Application Endpoints
