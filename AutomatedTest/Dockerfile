@@ -1,6 +1,4 @@
-FROM eclipse-temurin:21-jre-alpine
-
-RUN apk upgrade libexpat
+FROM eclipse-temurin:17-jre-alpine
 
 WORKDIR /app
 RUN chgrp -R 0 /app && \

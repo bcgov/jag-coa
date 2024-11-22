@@ -14,9 +14,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <properties>
-        <java.version>21</java.version>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <java.version>17</java.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
     </properties>
     <repositories>
         <repository>
@@ -43,10 +43,6 @@
                 <exclusion>
                     <groupId>thoughtworks</groupId>
                     <artifactId>xstream</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.google.oauth-client</groupId>
-                    <artifactId>google-oauth-client</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>net.sourceforge.htmlunit</groupId>
@@ -88,8 +84,8 @@
         </dependency>
         <dependency>
             <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.6.4</version>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.0.2</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
