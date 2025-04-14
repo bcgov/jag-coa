@@ -119,10 +119,12 @@
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
+            <version>4.12.0</version>
         </dependency>
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>logging-interceptor</artifactId>
+            <version>4.12.0</version>
         </dependency>
         <dependency>
             <groupId>org.threeten</groupId>
@@ -144,11 +146,6 @@
             <version>3.2.2</version>
         </dependency>
         <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
-            <version>1.9.4</version>
-        </dependency>
-        <dependency>
             <groupId>ca.bc.gov.open</groupId>
             <artifactId>coa-common-models</artifactId>
             <version>1.0.0</version>
@@ -165,7 +162,6 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
-            <version>6.3.4</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
@@ -180,7 +176,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>6.1.18</version>
         </dependency>
     </dependencies>
 
