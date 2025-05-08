@@ -75,6 +75,11 @@ jobs:
           username: ${{secrets.OPENSHIFT_SA_USERNAME}}
           password: ${{secrets.OPENSHIFT_SA_PASSWORD}}
 
+      - name: Install oc
+        uses: redhat-actions/openshift-tools-installer@v1
+        with:
+          oc: latest
+
       #Build and push image to OpenShift Image stream - Kamloops (OC PROD)
       - name: Build & Push Image to Openshift Image Stream - Kamloops (OC PROD)
         env:
