@@ -21,7 +21,7 @@ jobs:
   # This workflow contains a single job called "build"
   build-push-image:
     # The type of runner that the job will run on
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     environment: ${{ github.event.inputs.env }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -74,6 +74,11 @@ jobs:
           registry: ${{secrets.OPENSHIFT_EXTERNAL_REPOSITORY}}
           username: ${{secrets.OPENSHIFT_SA_USERNAME}}
           password: ${{secrets.OPENSHIFT_SA_PASSWORD}}
+
+      - name: Install oc
+        uses: redhat-actions/openshift-tools-installer@v1
+        with:
+          oc: latest
 
       #Build and push image to OpenShift Image stream - Kamloops (OC PROD)
       - name: Build & Push Image to Openshift Image Stream - Kamloops (OC PROD)
