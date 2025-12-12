@@ -1,5 +1,7 @@
 package ca.bc.gov.open.jag.coalargefileservice.api;
 
+import ca.bc.gov.open.jag.coalargefileservice.exception.COAException;
+import ca.bc.gov.open.jag.coalargefileservice.model.COAResponse;
 import ca.bc.gov.open.sftp.starter.SftpService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.text.MessageFormat;
+import java.util.UUID;
 
 @RestController
 public class UploadController {
@@ -26,7 +29,7 @@ public class UploadController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<String> uploadFileStreaming(@RequestPart("filePart") MultipartFile filePart) throws IOException {
+    public ResponseEntity<COAResponse> uploadFileStreaming(@RequestPart("filePart") MultipartFile filePart) throws IOException {
 
         logger.info("Upload Request Received");
 
@@ -36,13 +39,13 @@ public class UploadController {
             sftpService.put(filePart.getInputStream(), newFileName);
         } catch (Exception ex) {
             logger.error("Failed to upload to sftp", ex);
-            return ResponseEntity.internalServerError().body(ex.getMessage());
+            throw new COAException(ex.getMessage());
         }
 
         //Make Sync Call
 
         logger.info("Upload finished");
-        return ResponseEntity.ok(MessageFormat.format("Upload completed Successfully with new name: {0}", newFileName));
+        return ResponseEntity.ok(new COAResponse(UUID.randomUUID()));
 
     }
 
