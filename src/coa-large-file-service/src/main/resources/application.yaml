@@ -16,3 +16,8 @@ bcgov:
     knownHostsFileName: ${SFTP_KNOWNHOSTS:}
     allowUnknownKeys: ${SFTP_ALLOWUNKNOWN:false}
     sshPrivateKey: ${SFTP_PRIVATE_KEY:}
+coa:
+  username: ${COA_USERNAME:}
+  password: ${COA_PASSWORD:}
+  applicationName: ${COA_APPLICATION:COA}
+  authority: ${COA_AUTHORITY:COA_ROLE}
