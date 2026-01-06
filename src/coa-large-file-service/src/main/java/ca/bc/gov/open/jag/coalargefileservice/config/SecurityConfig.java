@@ -33,8 +33,6 @@ public class SecurityConfig {
 
         http.cors(cors -> cors.configurationSource(corsConfigurationSource()));
 
-        http.csrf(AbstractHttpConfigurer::disable);
-
         http.authorizeHttpRequests(requests -> requests
                 .requestMatchers("/actuator/**").permitAll()
                 .anyRequest().authenticated())
