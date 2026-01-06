@@ -29,11 +29,7 @@ jobs:
 
       - name: Checkout Repository
         uses: actions/checkout@v2
-
-     # Run Maven Verify COA Application   
-      - name: Build with Maven - COA Application
-        run: mvn -B install -P all --file src/coa-application/pom.xml
-
+  
       - name: Build with Maven - COA Large File Service
         run: mvn -B install -P all --file src/coa-large-file-service/pom.xml
 
