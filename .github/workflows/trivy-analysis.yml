@@ -38,10 +38,7 @@ jobs:
 
       # Runs build steps
       - name: Maven Package
-        run: mvn -ntp clean package
-
-      - name: Maven Verify
-        run: mvn -ntp clean verify
+        run: mvn -ntp clean package --file src/coa-application/pom.xml
 
       - name: Build an image from Dockerfile
         env:
