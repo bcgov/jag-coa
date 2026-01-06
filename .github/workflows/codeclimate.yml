@@ -1,7 +1,10 @@
 name: Build and Test COA Applications
 
-# Triggers that controls when the workflow will run
+permissions:
+  contents: read
+  
 on:
+
   push:
     branches: [main]
   pull_request:
