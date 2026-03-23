@@ -32,5 +32,5 @@ jobs:
 
      # Run Maven Verify COA Application   
       - name: Build with Maven - COA Application
-        run: mvn -B install -P all --file src/coa-application/pom.xml
+        run: mvn -ntp clean package --file src/coa-application/pom.xml
 
