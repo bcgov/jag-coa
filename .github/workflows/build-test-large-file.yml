@@ -1,4 +1,4 @@
-name: Build and Test COA Applications
+name: Build and Test COA Large File Applications
 
 permissions:
   contents: read
