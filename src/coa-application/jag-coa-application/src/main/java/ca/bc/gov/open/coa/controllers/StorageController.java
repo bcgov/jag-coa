@@ -101,7 +101,7 @@ public class StorageController {
 
         log.info("request + " + objectMapper.writeValueAsString(payload.getBody()));
         try {
-            HttpEntity<StoreoDcumentAsyncResponse> resp =
+            HttpEntity<StoreDocumentAsyncResponse> resp =
                     restTemplate.exchange(
                             builder.build(true).toUri(),
                             HttpMethod.POST,
