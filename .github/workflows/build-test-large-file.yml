@@ -26,6 +26,10 @@ jobs:
           java-version: 25
           
           cache: maven
+        
+       
+      - name: Build Spring Starters
+        run: mvn install -P all --file ./spring-boot-starters/src/pom.xml
 
       - name: Checkout Repository
         uses: actions/checkout@v2
