@@ -12,6 +12,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+import tools.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,9 +23,11 @@ public class COABasicAuthenticationEntryPoint extends BasicAuthenticationEntryPo
 
     Logger logger = LoggerFactory.getLogger(COABasicAuthenticationEntryPoint.class);
     private final BasicAuthProperties basicAuthProperties;
+    private final ObjectMapper objectMapper;
 
-    public COABasicAuthenticationEntryPoint(BasicAuthProperties basicAuthProperties) {
+    public COABasicAuthenticationEntryPoint(BasicAuthProperties basicAuthProperties, ObjectMapper objectMapper) {
         this.basicAuthProperties = basicAuthProperties;
+        this.objectMapper = objectMapper;
     }
 
     @Override

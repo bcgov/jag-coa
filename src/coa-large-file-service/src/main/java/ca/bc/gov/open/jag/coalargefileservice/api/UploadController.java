@@ -7,6 +7,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.http.ResponseEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,12 +18,13 @@ import java.text.MessageFormat;
 import java.util.UUID;
 
 @RestController
+@EnableWebSecurity
 public class UploadController {
 
     Logger logger = LoggerFactory.getLogger(UploadController.class);
 
     private final SftpService sftpService;
-    private RandomStringUtils stringUtil = new RandomStringUtils();
+    private final RandomStringUtils stringUtil = new RandomStringUtils();
 
     public UploadController(SftpService sftpService) {
         this.sftpService = sftpService;
