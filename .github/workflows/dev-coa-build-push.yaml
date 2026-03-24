@@ -1,4 +1,4 @@
-name: Main - Build Dev Image and Push to Artifactory
+name: Main - Build Dev COA Image and Push to Artifactory
 permissions:
   contents: write
 

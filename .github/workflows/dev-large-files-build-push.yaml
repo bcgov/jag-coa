@@ -1,4 +1,4 @@
-name: Main - Build Dev Image and Push to Artifactory
+name: Main - Build Dev COA Large Files Image and Push to Artifactory
 permissions:
   contents: write
 
@@ -15,7 +15,7 @@ on:
 
 env:
   IMAGE_NAME: jag-coa-large-files
-  WORKING_DIRECTORY: src/coa-application
+  WORKING_DIRECTORY: src/coa-large-file-service
   ENV_TAG: dev
   BRANCH_NAME: develop
 
