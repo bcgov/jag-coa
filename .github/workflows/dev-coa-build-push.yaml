@@ -15,7 +15,7 @@ on:
 
 env:
   IMAGE_NAME: jag-coa
-  WORKING_DIRECTORY: src/coa-application
+  WORKING_DIRECTORY: .
   ENV_TAG: dev
   BRANCH_NAME: develop
 
@@ -46,7 +46,7 @@ jobs:
       - name: Build Image
         working-directory: ${{env.WORKING_DIRECTORY}}
         run: |
-          docker build -t artifacts.developer.gov.bc.ca/jbf8-jag-coa/${{env.IMAGE_NAME}}:${{env.ENV_TAG}} .
+          docker build -t artifacts.developer.gov.bc.ca/jbf8-jag-coa/${{env.IMAGE_NAME}}:${{env.ENV_TAG}} -f src/coa-application/Dockerfile .
       
       - name: Docker Push to Artifactory
         run: |
