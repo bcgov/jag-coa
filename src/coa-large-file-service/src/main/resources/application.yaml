@@ -21,4 +21,8 @@ coa:
   password: ${COA_PASSWORD:test}
   applicationName: ${COA_APPLICATION:COA}
   authority: ${COA_AUTHORITY:COA_ROLE}
+ords:
+  baserUrl: ${ORDS_BASEURL:http://localhost}
+  username: ${ORDS_USERNAME:test}
+  password: ${ORDS_PASSWORD:test}
 

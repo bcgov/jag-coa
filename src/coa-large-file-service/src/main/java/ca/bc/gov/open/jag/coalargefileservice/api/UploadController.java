@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -25,9 +26,11 @@ public class UploadController {
 
     private final SftpService sftpService;
     private final RandomStringUtils stringUtil = new RandomStringUtils();
+    private final RestTemplate restTemplate;
 
-    public UploadController(SftpService sftpService) {
+    public UploadController(SftpService sftpService, RestTemplate restTemplate) {
         this.sftpService = sftpService;
+        this.restTemplate = restTemplate;
     }
 
     @PostMapping("/upload")

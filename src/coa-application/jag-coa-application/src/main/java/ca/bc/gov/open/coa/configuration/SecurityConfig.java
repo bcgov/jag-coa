@@ -27,10 +27,11 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(
-                authorizeRequests -> {
-                    authorizeRequests.anyRequest().authenticated();
-                });
+
+        http.authorizeHttpRequests(requests -> requests
+                        .requestMatchers("/actuator/**").permitAll()
+                        .anyRequest().authenticated())
+                .httpBasic(httpSecurityHttpBasicConfigurer -> httpSecurityHttpBasicConfigurer.authenticationEntryPoint(authenticationEntryPoint));
 
         http.sessionManagement(
                 httpSecuritySessionManagementConfigurer -> {
