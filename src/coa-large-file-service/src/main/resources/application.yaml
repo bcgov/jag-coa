@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: coa-large-file-service
+  servlet:
+    multipart:
+      max-file-size: -1
+      max-request-size: -1
+      file-size-threshold: 0
+bcgov:
+  sftp:
+    host: ${SFTP_HOST:localhost}
+    port: ${SFTP_PORT:22}
+    username: ${SFTP_USERNAME:foo}
+    password: ${SFTP_PASSWORD:pass}
+    remoteLocation: ${SFTP_REMOTELOCATION:upload}
+    knownHostsFileName: ${SFTP_KNOWNHOSTS:}
+    allowUnknownKeys: ${SFTP_ALLOWUNKNOWN:false}
+    sshPrivateKey: ${SFTP_PRIVATE_KEY:}
+coa:
+  username: ${COA_USERNAME:test}
+  password: ${COA_PASSWORD:test}
+  applicationName: ${COA_APPLICATION:COA}
+  authority: ${COA_AUTHORITY:COA_ROLE}
+

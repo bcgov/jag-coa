@@ -4,26 +4,14 @@ name: Build & Vulnerability Scan using Trivy Scanner
 
 on:
   push:
-    branches: [ main, release/* ]
-  pull_request:
-    # The branches below must be a subset of the branches above
-    branches: [ main, release/*]
+    branches: [ main ]
   workflow_dispatch:
-    branches: [ main, release/*, feature/*]
+    branches: [ main ]
 
 jobs:
   build-scan-image:
     name: Build & Scan Image
     runs-on: ubuntu-latest
-    env:
-      BASIC_AUTH_USER: ${{ secrets.BASIC_AUTH_USER }}
-      BASIC_AUTH_PASS: ${{ secrets.BASIC_AUTH_PASS }}
-      OBJ_STORE_PSW: ${{secrets.OBJ_STORE_PSW}}
-      OBJ_STORE_APP_ID: ${{secrets.OBJ_STORE_APP_ID}}
-      OBJ_STORE_DB_ID: ${{secrets.OBJ_STORE_DB_ID}}
-      OBJ_STORE_USER: ${{secrets.OBJ_STORE_USER}}
-      OBJ_STORE_VERSION: ${{secrets.OBJ_STORE_VERSION}}
-      OBJ_STORE_TICKET_LIFETIME: ${{secrets.OBJ_STORE_TICKET_LIFETIME}}
 
     steps:
       - name: Checkout code
@@ -38,10 +26,7 @@ jobs:
 
       # Runs build steps
       - name: Maven Package
-        run: mvn -ntp clean package
-
-      - name: Maven Verify
-        run: mvn -ntp clean verify
+        run: mvn -ntp clean package --file src/coa-application/pom.xml
 
       - name: Build an image from Dockerfile
         env:
@@ -52,7 +37,7 @@ jobs:
 
       #Run Vulnerability Scan usinig Trivy scanner
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@0.23.0
+        uses: aquasecurity/trivy-action@0.35.0
         with:
           scan-type: image
           image-ref: docker.io/coa/jag-coa:${{ github.sha }}

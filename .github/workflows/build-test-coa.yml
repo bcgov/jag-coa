@@ -1,0 +1,36 @@
+name: Build and Test COA Applications
+
+permissions:
+  contents: read
+  
+on:
+
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  spring:
+    name: App Build and Test
+    runs-on: ubuntu-latest
+    env:
+      ACTION_DEBUG: true
+
+    steps:   
+      
+      # Setup Java Environment
+      - name: Set up JDK 17
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
+          
+          cache: maven
+
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+     # Run Maven Verify COA Application   
+      - name: Build with Maven - COA Application
+        run: mvn -ntp clean package --file src/coa-application/pom.xml
+
