@@ -15,7 +15,7 @@ on:
 
 env:
   IMAGE_NAME: jag-coa
-  WORKING_DIRECTORY: src/coa-large-file-service
+  WORKING_DIRECTORY: src/coa-application
   ENV_TAG: dev
   BRANCH_NAME: develop
 
