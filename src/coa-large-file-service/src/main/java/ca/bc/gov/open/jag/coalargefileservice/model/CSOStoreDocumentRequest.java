@@ -10,60 +10,42 @@ public class CSOStoreDocumentRequest {
     private String databaseId;
     private String ticketLifetime;
 
-    public String getFilename() {
-        return filename;
+    public CSOStoreDocumentRequest(String filename, String applicationViewGrant, String appId, String userName, String password, String databaseId, String ticketLifetime) {
+        this.filename = filename;
+        this.applicationViewGrant = applicationViewGrant;
+        this.appId = appId;
+        this.userName = userName;
+        this.password = password;
+        this.databaseId = databaseId;
+        this.ticketLifetime = ticketLifetime;
     }
 
-    public void setFilename(String filename) {
-        this.filename = filename;
+    public String getFilename() {
+        return filename;
     }
 
     public String getApplicationViewGrant() {
         return applicationViewGrant;
     }
 
-    public void setApplicationViewGrant(String applicationViewGrant) {
-        this.applicationViewGrant = applicationViewGrant;
-    }
-
     public String getAppId() {
         return appId;
-    }
-
-    public void setAppId(String appId) {
-        this.appId = appId;
     }
 
     public String getUserName() {
         return userName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
     public String getPassword() {
         return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getDatabaseId() {
         return databaseId;
     }
 
-    public void setDatabaseId(String databaseId) {
-        this.databaseId = databaseId;
-    }
-
     public String getTicketLifetime() {
         return ticketLifetime;
-    }
-
-    public void setTicketLifetime(String ticketLifetime) {
-        this.ticketLifetime = ticketLifetime;
     }
 
 }

@@ -1,21 +1,16 @@
 package ca.bc.gov.open.jag.coalargefileservice.model;
 
-import java.util.UUID;
-
 public class COAResponse {
 
-    public COAResponse(UUID fileGuid) {
+    public COAResponse(String fileGuid) {
         this.fileGuid = fileGuid;
     }
 
-    private UUID fileGuid;
+    private String fileGuid;
 
-    public UUID getFileGuid() {
+    public String getFileGuid() {
         return fileGuid;
     }
 
-    public void setFileGuid(UUID fileGuid) {
-        this.fileGuid = fileGuid;
-    }
 
 }
