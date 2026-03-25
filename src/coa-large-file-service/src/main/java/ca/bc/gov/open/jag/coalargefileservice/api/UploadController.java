@@ -4,6 +4,7 @@ import ca.bc.gov.open.jag.coalargefileservice.exception.COAException;
 import ca.bc.gov.open.jag.coalargefileservice.model.COAResponse;
 import ca.bc.gov.open.jag.coalargefileservice.model.CSOStoreDocumentRequest;
 import ca.bc.gov.open.jag.coalargefileservice.model.CSOStoreDocumentResponse;
+import ca.bc.gov.open.jag.coalargefileservice.properties.ObjStoreProperties;
 import ca.bc.gov.open.jag.coalargefileservice.properties.OrdsConfigProperties;
 import ca.bc.gov.open.sftp.starter.SftpService;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -40,11 +41,13 @@ public class UploadController {
     private final RandomStringUtils stringUtil = new RandomStringUtils();
     private final RestClient restClient;
     private final OrdsConfigProperties ordsConfigProperties;
+    private final ObjStoreProperties objStoreProperties;
 
-    public UploadController(SftpService sftpService, RestClient restClient, OrdsConfigProperties ordsConfigProperties) {
+    public UploadController(SftpService sftpService, RestClient restClient, OrdsConfigProperties ordsConfigProperties, ObjStoreProperties objStoreProperties) {
         this.sftpService = sftpService;
         this.restClient = restClient;
         this.ordsConfigProperties = ordsConfigProperties;
+        this.objStoreProperties = objStoreProperties;
     }
 
     @PostMapping("/upload")
@@ -64,32 +67,33 @@ public class UploadController {
         CSOStoreDocumentRequest storeDocumentRequest = new CSOStoreDocumentRequest(
                 newFileName,
                 "",
-                null,
-                null,
-                null,
-                null,
-                null
+                objStoreProperties.getAppId(),
+                objStoreProperties.getUsername(),
+                objStoreProperties.getPassword(),
+                objStoreProperties.getDbId(),
+                objStoreProperties.getTicketLifetime()
         );
 
-        //Make Sync Call
-        CSOStoreDocumentResponse response = restClient
-                .post()
-                .uri(MessageFormat.format("{0}/{1}", ordsConfigProperties.getBaseUrl(), DOCUMENT_SYNC_PATH))
-                .header("Authorization", basicAuthHeader())
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(storeDocumentRequest)
-                .retrieve()
-                .body(CSOStoreDocumentResponse.class);
+        try {
+            //Make Sync Call
+            CSOStoreDocumentResponse response = restClient
+                    .post()
+                    .uri(MessageFormat.format("{0}/{1}", ordsConfigProperties.getBaseUrl(), DOCUMENT_SYNC_PATH))
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(storeDocumentRequest)
+                    .retrieve()
+                    .body(CSOStoreDocumentResponse.class);
 
-        logger.info("Upload finished");
-        return ResponseEntity.ok(new COAResponse(response.getDocumentGUID()));
+            logger.info("Upload finished");
+            return ResponseEntity.ok(new COAResponse(response.getDocumentGUID()));
+
+        } catch (Exception ex) {
+            logger.error("Failed during document sync", ex);
+            throw new COAException(ex.getMessage());
+        }
 
     }
 
-    private String basicAuthHeader() {
-        String auth = MessageFormat.format("{0}:{1}", ordsConfigProperties.getUsername(), ordsConfigProperties.getPassword());
-        return MessageFormat.format("Basic {0}",  Base64.getMimeEncoder().encodeToString(auth.getBytes(StandardCharsets.US_ASCII)));
 
-    }
 
 }
