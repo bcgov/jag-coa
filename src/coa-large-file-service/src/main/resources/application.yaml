@@ -21,4 +21,15 @@ coa:
   password: ${COA_PASSWORD:test}
   applicationName: ${COA_APPLICATION:COA}
   authority: ${COA_AUTHORITY:COA_ROLE}
+ords:
+  baserUrl: ${ORDS_BASEURL:http://localhost}
+  username: ${ORDS_USERNAME:test}
+  password: ${ORDS_PASSWORD:test}
+obj:
+  password: ${OBJ_STORE_PSW}
+  appId: ${OBJ_STORE_APP_ID}
+  dbId: ${OBJ_STORE_DB_ID}
+  username: ${OBJ_STORE_USER}
+  version: ${OBJ_STORE_VERSION}
+  ticketLifetime: ${OBJ_STORE_TICKET_LIFETIME}
 
