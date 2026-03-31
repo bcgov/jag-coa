@@ -1,8 +1,10 @@
 package ca.bc.gov.open.jag.coalargefileservice.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.validation.annotation.Validated;
 
-@ConfigurationProperties("obj")
+@Validated
+@ConfigurationProperties(prefix = "obj")
 public class ObjStoreProperties {
 
     private String password;

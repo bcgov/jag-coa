@@ -8,7 +8,6 @@ import ca.bc.gov.open.jag.coalargefileservice.properties.ObjStoreProperties;
 import ca.bc.gov.open.jag.coalargefileservice.properties.OrdsConfigProperties;
 import ca.bc.gov.open.sftp.starter.SftpService;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.logging.log4j.message.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -19,20 +18,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestClient;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
-import java.util.Base64;
-import java.util.UUID;
 
 import static ca.bc.gov.open.jag.coalargefileservice.Keys.DOCUMENT_SYNC_PATH;
 
 @RestController
 @EnableWebSecurity
-@EnableConfigurationProperties(OrdsConfigProperties.class)
+@EnableConfigurationProperties({OrdsConfigProperties.class, ObjStoreProperties.class})
 public class UploadController {
 
     Logger logger = LoggerFactory.getLogger(UploadController.class);

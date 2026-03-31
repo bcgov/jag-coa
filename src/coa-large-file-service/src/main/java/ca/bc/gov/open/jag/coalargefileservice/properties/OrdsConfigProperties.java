@@ -4,7 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
 @Validated
-@ConfigurationProperties(prefix = "coa.ords")
+@ConfigurationProperties(prefix = "ords")
 public class OrdsConfigProperties {
 
     private String baseUrl;
