@@ -26,10 +26,13 @@ ords:
   username: ${ORDS_USERNAME:test}
   password: ${ORDS_PASSWORD:test}
 obj:
-  password: ${OBJ_STORE_PSW}
-  appId: ${OBJ_STORE_APP_ID}
-  dbId: ${OBJ_STORE_DB_ID}
-  username: ${OBJ_STORE_USER}
-  version: ${OBJ_STORE_VERSION}
-  ticketLifetime: ${OBJ_STORE_TICKET_LIFETIME}
+  password: ${OBJ_STORE_PSW:test}
+  appId: ${OBJ_STORE_APP_ID:test}
+  dbId: ${OBJ_STORE_DB_ID:test}
+  username: ${OBJ_STORE_USER:test}
+  version: ${OBJ_STORE_VERSION:test}
+  ticketLifetime: ${OBJ_STORE_TICKET_LIFETIME:60000}
+splunk:
+  url: ${SPLUNK_URL:http://localhost/}
+  token: ${SPLUNK_TOKEN:garbage}
 

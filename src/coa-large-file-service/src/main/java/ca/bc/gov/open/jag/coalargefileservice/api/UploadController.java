@@ -1,6 +1,7 @@
 package ca.bc.gov.open.jag.coalargefileservice.api;
 
 import ca.bc.gov.open.jag.coalargefileservice.exception.COAException;
+import ca.bc.gov.open.jag.coalargefileservice.model.COAFileShareRequest;
 import ca.bc.gov.open.jag.coalargefileservice.model.COAResponse;
 import ca.bc.gov.open.jag.coalargefileservice.model.CSOStoreDocumentRequest;
 import ca.bc.gov.open.jag.coalargefileservice.model.CSOStoreDocumentResponse;
@@ -8,6 +9,7 @@ import ca.bc.gov.open.jag.coalargefileservice.properties.ObjStoreProperties;
 import ca.bc.gov.open.jag.coalargefileservice.properties.OrdsConfigProperties;
 import ca.bc.gov.open.sftp.starter.SftpService;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -15,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestClient;
@@ -23,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.text.MessageFormat;
 
+import static ca.bc.gov.open.jag.coalargefileservice.Keys.DOCUMENT_SHARE_PATH;
 import static ca.bc.gov.open.jag.coalargefileservice.Keys.DOCUMENT_SYNC_PATH;
 
 @RestController
@@ -46,7 +50,7 @@ public class UploadController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<COAResponse> uploadFileStreaming(@RequestPart("filePart") MultipartFile filePart) throws IOException {
+    public ResponseEntity<COAResponse> uploadFileStreaming(@RequestPart("filePart") MultipartFile filePart, @RequestParam(required = false) String shareApplication) throws IOException {
 
         logger.info("Upload Request Received");
 
@@ -54,6 +58,7 @@ public class UploadController {
 
         try {
             sftpService.put(filePart.getInputStream(), newFileName);
+            logger.info("File upload complete");
         } catch (Exception ex) {
             logger.error("Failed to upload to sftp", ex);
             throw new COAException(ex.getMessage());
@@ -61,7 +66,7 @@ public class UploadController {
 
         CSOStoreDocumentRequest storeDocumentRequest = new CSOStoreDocumentRequest(
                 newFileName,
-                "",
+                shareApplication,
                 objStoreProperties.getAppId(),
                 objStoreProperties.getUsername(),
                 objStoreProperties.getPassword(),
@@ -70,6 +75,9 @@ public class UploadController {
         );
 
         try {
+
+            logger.info("Begin file sync");
+
             //Make Sync Call
             CSOStoreDocumentResponse response = restClient
                     .post()
@@ -80,6 +88,7 @@ public class UploadController {
                     .body(CSOStoreDocumentResponse.class);
 
             logger.info("Upload finished");
+
             return ResponseEntity.ok(new COAResponse(response.getDocumentGUID()));
 
         } catch (Exception ex) {
@@ -88,7 +97,5 @@ public class UploadController {
         }
 
     }
-
-
 
 }
