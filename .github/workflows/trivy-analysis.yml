@@ -29,7 +29,7 @@ jobs:
         uses: aquasecurity/trivy-action@0.35.0
         with:
           scan-type: image
-          image-ref: artifacts.developer.gov.bc.ca/jbf8-jag-coa/${{env.IMAGE_NAME}}:${{env.ENV_TAG}
+          image-ref: artifacts.developer.gov.bc.ca/jbf8-jag-coa/${{env.IMAGE_NAME}}:${{env.ENV_TAG}}
           format: sarif
           output: trivy-results.sarif
           exit-code: 1
@@ -55,7 +55,7 @@ jobs:
         uses: aquasecurity/trivy-action@0.35.0
         with:
           scan-type: image
-          image-ref: artifacts.developer.gov.bc.ca/jbf8-jag-coa/${{env.IMAGE_NAME}}:${{env.ENV_TAG}
+          image-ref: artifacts.developer.gov.bc.ca/jbf8-jag-coa/${{env.IMAGE_NAME}}:${{env.ENV_TAG}}
           format: sarif
           output: trivy-results.sarif
           exit-code: 1
@@ -64,7 +64,7 @@ jobs:
           severity: HIGH,CRITICAL
 
       #Upload results to the Github security tab.
-      - name: Upload Trivy scan results to GitHub Security tabCOA Large File Application
+      - name: Upload Trivy scan results to GitHub Security tab COA Large File Application
         uses: github/codeql-action/upload-sarif@v3
         if: always()
         with:
