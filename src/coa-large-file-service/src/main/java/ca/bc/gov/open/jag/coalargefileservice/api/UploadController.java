@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestClient;
@@ -46,7 +47,7 @@ public class UploadController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<COAResponse> uploadFileStreaming(@RequestPart("filePart") MultipartFile filePart) throws IOException {
+    public ResponseEntity<COAResponse> uploadFileStreaming(@RequestPart("filePart") MultipartFile filePart, @RequestParam(required = false) String shareApplication) throws IOException {
 
         logger.info("Upload Request Received");
 
@@ -54,6 +55,7 @@ public class UploadController {
 
         try {
             sftpService.put(filePart.getInputStream(), newFileName);
+            logger.info("File upload complete");
         } catch (Exception ex) {
             logger.error("Failed to upload to sftp", ex);
             throw new COAException(ex.getMessage());
@@ -61,7 +63,7 @@ public class UploadController {
 
         CSOStoreDocumentRequest storeDocumentRequest = new CSOStoreDocumentRequest(
                 newFileName,
-                "",
+                shareApplication,
                 objStoreProperties.getAppId(),
                 objStoreProperties.getUsername(),
                 objStoreProperties.getPassword(),
@@ -70,6 +72,9 @@ public class UploadController {
         );
 
         try {
+
+            logger.info("Begin file sync");
+
             //Make Sync Call
             CSOStoreDocumentResponse response = restClient
                     .post()
@@ -80,6 +85,7 @@ public class UploadController {
                     .body(CSOStoreDocumentResponse.class);
 
             logger.info("Upload finished");
+
             return ResponseEntity.ok(new COAResponse(response.getDocumentGUID()));
 
         } catch (Exception ex) {
@@ -88,7 +94,5 @@ public class UploadController {
         }
 
     }
-
-
 
 }

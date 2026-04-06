@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import tools.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.MessageFormat;
 
 @Component
@@ -32,11 +31,11 @@ public class COABasicAuthenticationEntryPoint extends BasicAuthenticationEntryPo
     public void commence(
             HttpServletRequest request, HttpServletResponse response, AuthenticationException authEx)
             throws IOException {
+
         response.addHeader("WWW-Authenticate", MessageFormat.format("Basic realm={0}", getRealmName()));
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         logger.warn("Unauthorized access attempt", authEx);
-        PrintWriter writer = response.getWriter();
-        writer.println("HTTP Status 401 - Unauthorized");
+
     }
 
     @Override
