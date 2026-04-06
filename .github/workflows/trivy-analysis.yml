@@ -64,7 +64,7 @@ jobs:
           severity: HIGH,CRITICAL
 
       #Upload results to the Github security tab.
-      - name: Upload Trivy scan results to GitHub Security tabCOA Large File Application
+      - name: Upload Trivy scan results to GitHub Security tab COA Large File Application
         uses: github/codeql-action/upload-sarif@v3
         if: always()
         with:
