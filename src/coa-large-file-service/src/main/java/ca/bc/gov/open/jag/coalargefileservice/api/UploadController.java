@@ -1,7 +1,6 @@
 package ca.bc.gov.open.jag.coalargefileservice.api;
 
 import ca.bc.gov.open.jag.coalargefileservice.exception.COAException;
-import ca.bc.gov.open.jag.coalargefileservice.model.COAFileShareRequest;
 import ca.bc.gov.open.jag.coalargefileservice.model.COAResponse;
 import ca.bc.gov.open.jag.coalargefileservice.model.CSOStoreDocumentRequest;
 import ca.bc.gov.open.jag.coalargefileservice.model.CSOStoreDocumentResponse;
@@ -9,7 +8,6 @@ import ca.bc.gov.open.jag.coalargefileservice.properties.ObjStoreProperties;
 import ca.bc.gov.open.jag.coalargefileservice.properties.OrdsConfigProperties;
 import ca.bc.gov.open.sftp.starter.SftpService;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -26,7 +24,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.text.MessageFormat;
 
-import static ca.bc.gov.open.jag.coalargefileservice.Keys.DOCUMENT_SHARE_PATH;
 import static ca.bc.gov.open.jag.coalargefileservice.Keys.DOCUMENT_SYNC_PATH;
 
 @RestController
