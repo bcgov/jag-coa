@@ -32,11 +32,11 @@ public class COABasicAuthenticationEntryPoint extends BasicAuthenticationEntryPo
     public void commence(
             HttpServletRequest request, HttpServletResponse response, AuthenticationException authEx)
             throws IOException {
+
         response.addHeader("WWW-Authenticate", MessageFormat.format("Basic realm={0}", getRealmName()));
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         logger.warn("Unauthorized access attempt", authEx);
-        PrintWriter writer = response.getWriter();
-        writer.println("HTTP Status 401 - Unauthorized");
+
     }
 
     @Override
