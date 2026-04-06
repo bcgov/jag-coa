@@ -1,6 +1,6 @@
 # This workflow is used to build & scan image using trivy vulnerability scanner and upload the results to github security tab
 
-name: Build & Vulnerability Scan using Trivy Scanner
+name: Build & Vulnerability (COA Applications) Scan using Trivy Scanner and Push to Security Tab
 
 on:
   push:
@@ -17,30 +17,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Set up JDK build environment
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: 17
-
-      # Runs build steps
-      - name: Maven Package
-        run: mvn -ntp clean package --file src/coa-application/pom.xml
-
-      - name: Build an image from Dockerfile
+      - name: Build an image from Dockerfile COA Application
         env:
           COMPOSE_DOCKER_CLI_BUILD: 1
           DOCKER_BUILDKIT: 1
         run: |
-          docker build -t docker.io/coa/jag-coa:${{ github.sha }} .
+          docker build -t artifacts.developer.gov.bc.ca/jbf8-jag-coa/${{env.IMAGE_NAME}}:${{env.ENV_TAG}} -f src/coa-application/Dockerfile .
 
       #Run Vulnerability Scan usinig Trivy scanner
-      - name: Run Trivy vulnerability scanner
+      - name: Run Trivy vulnerability scanner COA Application
         uses: aquasecurity/trivy-action@0.35.0
         with:
           scan-type: image
-          image-ref: docker.io/coa/jag-coa:${{ github.sha }}
+          image-ref: artifacts.developer.gov.bc.ca/jbf8-jag-coa/${{env.IMAGE_NAME}}:${{env.ENV_TAG}
           format: sarif
           output: trivy-results.sarif
           exit-code: 1
@@ -49,8 +38,35 @@ jobs:
           severity: HIGH,CRITICAL
 
       #Upload results to the Github security tab.
-      - name: Upload Trivy scan results to GitHub Security tab
+      - name: Upload Trivy scan results to GitHub Security tab COA Large File Application
         uses: github/codeql-action/upload-sarif@v3
         if: always()
         with:
           sarif_file: trivy-results.sarif
+      - name: Build an image from Dockerfile COA Application
+        env:
+          COMPOSE_DOCKER_CLI_BUILD: 1
+          DOCKER_BUILDKIT: 1
+        run: |
+          docker build -t artifacts.developer.gov.bc.ca/jbf8-jag-coa/${{env.IMAGE_NAME}}:${{env.ENV_TAG}} -f src/coa-large-file-service/Dockerfile .
+
+      #Run Vulnerability Scan usinig Trivy scanner
+      - name: Run Trivy vulnerability scanner COA Large File Application
+        uses: aquasecurity/trivy-action@0.35.0
+        with:
+          scan-type: image
+          image-ref: artifacts.developer.gov.bc.ca/jbf8-jag-coa/${{env.IMAGE_NAME}}:${{env.ENV_TAG}
+          format: sarif
+          output: trivy-results.sarif
+          exit-code: 1
+          ignore-unfixed: true
+          limit-severities-for-sarif: true
+          severity: HIGH,CRITICAL
+
+      #Upload results to the Github security tab.
+      - name: Upload Trivy scan results to GitHub Security tabCOA Large File Application
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: trivy-results.sarif
+          
