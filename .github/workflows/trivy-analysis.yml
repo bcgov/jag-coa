@@ -22,14 +22,14 @@ jobs:
           COMPOSE_DOCKER_CLI_BUILD: 1
           DOCKER_BUILDKIT: 1
         run: |
-          docker build -t artifacts.developer.gov.bc.ca/jbf8-jag-coa/${{env.IMAGE_NAME}}:${{env.ENV_TAG}} -f src/coa-application/Dockerfile .
+          docker build -t coa-application -f src/coa-application/Dockerfile .
 
       #Run Vulnerability Scan usinig Trivy scanner
       - name: Run Trivy vulnerability scanner COA Application
         uses: aquasecurity/trivy-action@0.35.0
         with:
           scan-type: image
-          image-ref: artifacts.developer.gov.bc.ca/jbf8-jag-coa/${{env.IMAGE_NAME}}:${{env.ENV_TAG}}
+          image-ref: coa-application
           format: sarif
           output: trivy-results.sarif
           exit-code: 1
@@ -48,14 +48,14 @@ jobs:
           COMPOSE_DOCKER_CLI_BUILD: 1
           DOCKER_BUILDKIT: 1
         run: |
-          docker build -t artifacts.developer.gov.bc.ca/jbf8-jag-coa/${{env.IMAGE_NAME}}:${{env.ENV_TAG}} -f src/coa-large-file-service/Dockerfile .
+          docker build -t coa-large-file-api -f src/coa-large-file-service/Dockerfile .
 
       #Run Vulnerability Scan usinig Trivy scanner
       - name: Run Trivy vulnerability scanner COA Large File Application
         uses: aquasecurity/trivy-action@0.35.0
         with:
           scan-type: image
-          image-ref: artifacts.developer.gov.bc.ca/jbf8-jag-coa/${{env.IMAGE_NAME}}:${{env.ENV_TAG}}
+          image-ref: coa-large-file-api
           format: sarif
           output: trivy-results.sarif
           exit-code: 1
