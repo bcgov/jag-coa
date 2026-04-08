@@ -1,8 +1,7 @@
-name: Build & Vulnerability (COA Application) Scan using Trivy Scanner and Push to Security Tab
-
+name: Build & Vulnerability (COA Large File Service) Scan using Trivy Scanner and Push to Security Tab
 permissions:
   contents: write
-
+  
 on:
   push:
     branches: [ main ]
@@ -18,19 +17,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Build an image from Dockerfile COA Application
+      - name: Build an image from Dockerfile COA Large File Application
+        working-directory: src/coa-large-file-service
         env:
           COMPOSE_DOCKER_CLI_BUILD: 1
           DOCKER_BUILDKIT: 1
         run: |
-          docker build -t coa-application -f src/coa-application/Dockerfile .
+          docker build -t coa-large-file-api -f Dockerfile .
 
       #Run Vulnerability Scan usinig Trivy scanner
-      - name: Run Trivy vulnerability scanner COA Application
+      - name: Run Trivy vulnerability scanner COA Large File Application
         uses: aquasecurity/trivy-action@0.35.0
         with:
           scan-type: image
-          image-ref: coa-application
+          image-ref: coa-large-file-api
           format: sarif
           output: trivy-results.sarif
           ignore-unfixed: true
@@ -43,5 +43,4 @@ jobs:
         if: always()
         with:
           sarif_file: trivy-results.sarif
-          
-          
+
