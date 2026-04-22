@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>ca.bc.gov.open.jag</groupId>
 	<artifactId>coa-large-file-service</artifactId>
-	<version>0.1.0-SNAPSHOT</version>
+	<version>0.1.1-SNAPSHOT</version>
 	<name>coa-large-file-service</name>
 	<description>Large File Transfer Service</description>
 	<properties>
