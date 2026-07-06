@@ -2,7 +2,7 @@ name: Build & Vulnerability (COA Application) Scan using Trivy Scanner and Push 
 
 permissions:
   contents: write
-  security-events: read
+  security-events: write
 
 on:
   push:

@@ -1,7 +1,7 @@
 name: Build & Vulnerability (COA Large File Service) Scan using Trivy Scanner and Push to Security Tab
 permissions:
   contents: write
-  security-events: read
+  security-events: write
   
 on:
   push:
