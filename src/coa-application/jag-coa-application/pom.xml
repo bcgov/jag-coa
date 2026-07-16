@@ -5,7 +5,7 @@
     <parent>
         <groupId>ca.bc.gov.open</groupId>
         <artifactId>jag-coa</artifactId>
-        <version>1.0.0</version>
+        <version>2.0.5-SNAPSHOT</version>
     </parent>
 
     <artifactId>jag-coa-application</artifactId>
@@ -31,7 +31,7 @@
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-core</artifactId>
-            <version>10.1.45</version>
+            <version>10.1.55</version>
         </dependency>
 
         <dependency>
@@ -155,7 +155,7 @@
         <dependency>
             <groupId>ca.bc.gov.open</groupId>
             <artifactId>coa-common-models</artifactId>
-            <version>1.0.0</version>
+            <version>2.0.5-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
