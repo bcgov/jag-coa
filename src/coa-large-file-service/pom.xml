@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>4.0.5</version>
+		<version>4.0.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ca.bc.gov.open.jag</groupId>
@@ -16,6 +16,9 @@
 	<properties>
 		<java.version>25</java.version>
         <splunk-logging.version>1.11.8</splunk-logging.version>
+        <tomcat.version>11.0.22</tomcat.version>
+        <spring-security.version>7.0.5</spring-security.version>
+        <jackson-bom.version>3.1.4</jackson-bom.version>
 	</properties>
 	<dependencies>
 
@@ -73,13 +76,13 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.5.25</version>
+            <version>1.5.34</version>
         </dependency>
 
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
-            <version>1.5.25</version>
+            <version>1.5.34</version>
         </dependency>
 
         <dependency>

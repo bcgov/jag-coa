@@ -28,7 +28,11 @@ RUN mvn -B clean install \
 #############################################################################################
 ### Stage where Docker is running a java process to run a service built in previous stage ###
 #############################################################################################
-FROM openjdk:25-ea-21-jdk-slim
+FROM eclipse-temurin:25-jre-noble
+
+RUN apt-get update \
+    && apt-get upgrade -y \
+    && rm -rf /var/lib/apt/lists/*
 
 ARG SERVICE_NAME=coa-large-file-service
 
