@@ -6,6 +6,12 @@ spring:
       max-file-size: -1
       max-request-size: -1
       file-size-threshold: 0
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${OAUTH_SERVER_URL:http://localhost:8081/auth/realms/csb}
+          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
 bcgov:
   sftp:
     host: ${SFTP_HOST:localhost}
@@ -17,11 +23,6 @@ bcgov:
     allowUnknownKeys: ${SFTP_ALLOWUNKNOWN:false}
     sshPrivateKey: ${SFTP_PRIVATE_KEY:}
     sshPrivatePassphrase: ${SFTP_PRIVATE_PASSPHRASE:}
-coa:
-  username: ${COA_USERNAME:test}
-  password: ${COA_PASSWORD:test}
-  applicationName: ${COA_APPLICATION:COA}
-  authority: ${COA_AUTHORITY:COA_ROLE}
 ords:
   baserUrl: ${ORDS_BASEURL:http://localhost}
   username: ${ORDS_USERNAME:test}
@@ -36,4 +37,7 @@ obj:
 splunk:
   url: ${SPLUNK_URL:http://localhost/}
   token: ${SPLUNK_TOKEN:garbage}
-
+jwt:
+  auth:
+    converter:
+      resource-id: ${OAUTH_RESOURCE_ID:jag-coa-large-file-api}
