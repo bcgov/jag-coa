@@ -18,7 +18,8 @@ RUN apk update \
     && apk add --upgrade --no-cache libexpat \
     && apk add --upgrade --no-cache libpng \
     && apk add --upgrade --no-cache openssl \
-    && apk add --upgrade --no-cache p11-kit
+    && apk add --upgrade --no-cache p11-kit \
+    && apk add --upgrade --no-cache p11-kit-trust
 
 COPY --from=build /workspace/jag-coa-application/target/jag-coa-application.jar /jag-coa-application.jar
 
