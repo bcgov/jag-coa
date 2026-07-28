@@ -76,6 +76,9 @@ Option C) Docker
 3) Run ```docker build -t coa-application .```
 4) Run ```docker run -p 8080:8080 coa-application $ENV_VAR$```  (Note that $ENV_VAR$ are environment variables)
 
+### Set project version using maven
+1) Run ```mvn versions:set -DartifactId=*  -DgroupId=*```
+
 ### Pre Commit
 1) Do not commit \CRLF use unix line enders
 2) Run the linter ```mvn spotless:apply```
