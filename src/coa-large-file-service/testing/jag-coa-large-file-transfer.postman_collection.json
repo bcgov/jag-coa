@@ -1,37 +1,127 @@
 {
-	"info": {
-		"_postman_id": "77fdf6e7-a742-4afb-ba12-92d5a2699a40",
-		"name": "jag-coa-large-file-transfer",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "7463243"
-	},
-	"item": [
-		{
-			"name": "Upload File",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "filePart",
-							"type": "file",
-							"src": "/C:/Users/177141/Downloads/largefile.pdf"
-						}
-					]
-				},
-				"url": {
-					"raw": "{{baseUrl}}/upload",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"upload"
-					]
-				}
-			},
-			"response": []
-		}
-	]
+  "info": {
+    "_postman_id": "77fdf6e7-a742-4afb-ba12-92d5a2699a40",
+    "name": "jag-coa-large-file-transfer",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "7463243"
+  },
+  "item": [
+    {
+      "name": "Upload File",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "{{coaPassword}}",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "{{coaUsername}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "filePart",
+              "type": "file",
+              "uuid": "85d2754d-fdd2-424f-be51-9d706bed2254",
+              "src": "/C:/Users/177141/Downloads/largefile.pdf"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/upload",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "upload"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/acutator/health",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "acutator",
+            "health"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "token",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Get jwt\", function () {\r",
+              "    var jsonData = pm.response.json();\r",
+              "    pm.environment.set(\"jwt\", jsonData.access_token);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "grant_type",
+              "value": "client_credentials",
+              "type": "default"
+            },
+            {
+              "key": "client_secret",
+              "value": "{{keycloakCredentail}}",
+              "type": "default"
+            },
+            {
+              "key": "client_id",
+              "value": "{{clientId}}",
+              "type": "default"
+            },
+            {
+              "key": "scope",
+              "value": "openid",
+              "type": "default",
+              "disabled": true
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{keycloakUrl}}",
+          "host": [
+            "{{keycloakUrl}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
 }
